@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Slide</title>
+	<style>
+		* { margin: 0; padding: 0; }
+		.container {
+			width: 100%;
+			height: auto;
+			min-height: 600px;
+			background: #ccc;
+			position: relative;
+			overflow: hidden;
+		}
+		.list-view {
+			overflow: hidden;
+			list-style: none;
+			width: 100%;
+		}
+		.list-view li {
+			height: 60px;
+			width: 100%;
+			background: rgb(167, 218, 194);
+			border-bottom: 1px solid rgb(179, 175, 175);
+			overflow: hidden;
+		}
+		.list-img {
+			width: 50px;
+			height: 50px;
+			background: #5ddada;
+			margin: 5px 10px;
+		}
+		.swipe-box {
+			transition: all 0.35s;
+			position: relative;
+			left: 0;
+		}
+		/* .swipe-box.back {
+			left: 0 !important;
+		}
+		.swipe-box.forward {
+			left: -70px !important;
+		} */
+		.del-btn {
+			width: 70px;
+			height: 60px;
+			background: rgb(202, 60, 60);
+			color: #fff;
+			text-align: center;
+			line-height: 60px;
+			position: absolute;
+			top: 0;
+			right: -70px;
+		}
+	</style>
+
+</head>
+<body>
+	<div class="container">
+		<ul class="list-view">
+			<div class="swipe-box">
+				<li>
+					<div class="list-img"></div>
+				</li>
+				<span class="del-btn">删除</span>
+			</div>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+
+    <script>
+        var swipeBox = document.querySelector(".swipe-box");
+        var touchStart = 0,
+			startX = 0,
+			slideRange = 0,
+			isMoved = false;
+
+		document.querySelector('.del-btn').onclick = function(e) {
+			e.stopPropagation();
+			alert('hh');	
+		};
+		
+		swipeBox.addEventListener('touchstart', function(e) {
+			var e = e || event;
+			e.preventDefault();
+
+			startX = e.targetTouches[0].pageX;
+			this.style.left = '0px';
+			// this.className = this.className.replace(/ back/g, '');
+			// this.className = this.className.replace(/ forward/g, '');
+		});
+
+		swipeBox.addEventListener('touchmove', function(e) {
+			var e = e || event;
+			e.preventDefault();
+
+			var touchX = e.targetTouches[0].pageX;
+			slideRange = touchX - startX;
+
+			// console.log(slideRange);
+			// 更改位置
+			this.style.left = slideRange + 'px';
+			//限定两侧位置
+            if(slideRange < -70) {
+        		this.style.left = '-70px';
+        	} else if(slideRange > 0) {
+        		this.style.left = '0px';
+        	}
+		});
+
+		swipeBox.addEventListener('touchend', function(e) {
+			var e = e || event;
+			e.preventDefault();
+
+			if(slideRange > -35) {
+				// this.className += ' back';
+				this.style.left = '0';
+			} else {
+				// this.className += ' forward';
+				this.style.left = '-70px';
+			}
+			slideRange = 0;
+		});
+		 
+    </script>
+</body>
+</html>
