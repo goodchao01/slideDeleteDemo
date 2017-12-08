@@ -31,6 +31,7 @@
 		}
 
 		.list-view li {
+			transition: all 0.35s;
 			height: 60px;
 			width: 100%;
 			background: rgb(167, 218, 194);
@@ -53,10 +54,19 @@
 			position: relative;
 			left: 0;
 		}
+		.swipe-box.hide {
+			left: 100% !important;
+		}
+		.swipe-box.hide .del-btn, .swipe-box.hide li {
+			height: 0px;
+			border: none;
+		}
+
 		.swipe-bar {
 			background:#6c8888;
 		}
 		.del-btn {
+			transition: all 0.35s;
 			width: 70px;
 			height: 60px;
 			background: rgb(202, 60, 60);
@@ -107,8 +117,13 @@
 	<script>
 		var swipeBars = document.querySelectorAll(".swipe-bar");
 
-		for(var i=0; i<swipeBars.length; i++) {
+		document.body.onclick = function() {
+			for(var i=0; i<swipeBars.length; i++) {
+				swipeBars[i].parentNode.style.left = '0px';
+			}
+		}
 
+		for(var i=0; i<swipeBars.length; i++) {
 			var touchStart = 0,
 				beginX = 0,
 				slideRange = 0,
@@ -124,7 +139,10 @@
 				starty = e.touches[0].pageY;
 
 				beginX = e.targetTouches[0].pageX;
-				this.parentNode.style.left = '0px';
+
+				for(var i=0; i<swipeBars.length; i++) {
+					swipeBars[i].parentNode.style.left = '0px';
+				}
 			}, false);
 			
 			//滑动屏幕
@@ -174,9 +192,9 @@
 			}, false);
 
 			// 点击删除按钮
-			swipeBars[i].parentNode.querySelector('.del-btn').onclick = function() {
-				var alertText = this.parentNode.querySelector('.swipe-bar').innerText;
-				alert('删除' + alertText);
+			swipeBars[i].parentNode.querySelector('.del-btn').onclick = function(e) {
+				e.preventDefault();
+				this.parentNode.className += ' hide';
 			}
 		}
 
