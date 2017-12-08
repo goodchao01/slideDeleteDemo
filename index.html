@@ -115,7 +115,7 @@
 				<div class="swipe-bar">
 					<li>
 						<div class="list-img fl"></div>
-						<div class="list-content fl">列表3</div>
+						<div class="list-content fl">列表4</div>
 					</li>
 				</div>
 				<span class="del-btn">删除</span>
@@ -124,7 +124,7 @@
 				<div class="swipe-bar">
 					<li>
 						<div class="list-img fl"></div>
-						<div class="list-content fl">列表3</div>
+						<div class="list-content fl">列表5</div>
 					</li>
 				</div>
 				<span class="del-btn">删除</span>
@@ -133,7 +133,7 @@
 				<div class="swipe-bar">
 					<li>
 						<div class="list-img fl"></div>
-						<div class="list-content fl">列表3</div>
+						<div class="list-content fl">列表6</div>
 					</li>
 				</div>
 				<span class="del-btn">删除</span>
@@ -142,7 +142,7 @@
 				<div class="swipe-bar">
 					<li>
 						<div class="list-img fl"></div>
-						<div class="list-content fl">列表3</div>
+						<div class="list-content fl">列表7</div>
 					</li>
 				</div>
 				<span class="del-btn">删除</span>
@@ -151,7 +151,7 @@
 				<div class="swipe-bar">
 					<li>
 						<div class="list-img fl"></div>
-						<div class="list-content fl">列表3</div>
+						<div class="list-content fl">列表8</div>
 					</li>
 				</div>
 				<span class="del-btn">删除</span>
@@ -160,7 +160,7 @@
 				<div class="swipe-bar">
 					<li>
 						<div class="list-img fl"></div>
-						<div class="list-content fl">列表3</div>
+						<div class="list-content fl">列表9</div>
 					</li>
 				</div>
 				<span class="del-btn">删除</span>
@@ -169,7 +169,7 @@
 				<div class="swipe-bar">
 					<li>
 						<div class="list-img fl"></div>
-						<div class="list-content fl">列表3</div>
+						<div class="list-content fl">列表10</div>
 					</li>
 				</div>
 				<span class="del-btn">删除</span>
@@ -178,7 +178,7 @@
 				<div class="swipe-bar">
 					<li>
 						<div class="list-img fl"></div>
-						<div class="list-content fl">列表3</div>
+						<div class="list-content fl">列表11</div>
 					</li>
 				</div>
 				<span class="del-btn">删除</span>
@@ -187,7 +187,7 @@
 				<div class="swipe-bar">
 					<li>
 						<div class="list-img fl"></div>
-						<div class="list-content fl">列表3</div>
+						<div class="list-content fl">列表12</div>
 					</li>
 				</div>
 				<span class="del-btn">删除</span>
@@ -196,7 +196,7 @@
 				<div class="swipe-bar">
 					<li>
 						<div class="list-img fl"></div>
-						<div class="list-content fl">列表3</div>
+						<div class="list-content fl">列表13</div>
 					</li>
 				</div>
 				<span class="del-btn">删除</span>
@@ -205,7 +205,7 @@
 				<div class="swipe-bar">
 					<li>
 						<div class="list-img fl"></div>
-						<div class="list-content fl">列表3</div>
+						<div class="list-content fl">列表14</div>
 					</li>
 				</div>
 				<span class="del-btn">删除</span>
@@ -214,43 +214,7 @@
 				<div class="swipe-bar">
 					<li>
 						<div class="list-img fl"></div>
-						<div class="list-content fl">列表3</div>
-					</li>
-				</div>
-				<span class="del-btn">删除</span>
-			</div>
-			<div class="swipe-box">
-				<div class="swipe-bar">
-					<li>
-						<div class="list-img fl"></div>
-						<div class="list-content fl">列表3</div>
-					</li>
-				</div>
-				<span class="del-btn">删除</span>
-			</div>
-			<div class="swipe-box">
-				<div class="swipe-bar">
-					<li>
-						<div class="list-img fl"></div>
-						<div class="list-content fl">列表3</div>
-					</li>
-				</div>
-				<span class="del-btn">删除</span>
-			</div>
-			<div class="swipe-box">
-				<div class="swipe-bar">
-					<li>
-						<div class="list-img fl"></div>
-						<div class="list-content fl">列表3</div>
-					</li>
-				</div>
-				<span class="del-btn">删除</span>
-			</div>
-			<div class="swipe-box">
-				<div class="swipe-bar">
-					<li>
-						<div class="list-img fl"></div>
-						<div class="list-content fl">列表3</div>
+						<div class="list-content fl">列表15</div>
 					</li>
 				</div>
 				<span class="del-btn">删除</span>
@@ -276,8 +240,8 @@
 	
 			//手指接触屏幕
 			swipeBars[i].addEventListener("touchstart", function(e) {
-				var e = e || event;
-				e.preventDefault();
+				// var e = e || event;
+				// e.preventDefault();
 
 				startx = e.touches[0].pageX;
 				starty = e.touches[0].pageY;
@@ -291,8 +255,8 @@
 			
 			//滑动屏幕
 			swipeBars[i].addEventListener("touchmove", function(e) {
-				var e = e || event;
-				e.preventDefault();
+				// var e = e || event;
+				// e.preventDefault();
 
 				var endx, endy;
 				endx = e.changedTouches[0].pageX;
@@ -316,8 +280,8 @@
 
 			//离开屏幕
 			swipeBars[i].addEventListener("touchend", function(e) {
-				var e = e || event;
-				e.preventDefault();
+				// var e = e || event;
+				// e.preventDefault();
 
 				if (slideRange > -35) {
 					this.parentNode.style.left = '0';
