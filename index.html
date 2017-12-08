@@ -57,7 +57,7 @@
 		.swipe-box.hide {
 			left: 100% !important;
 		}
-		.swipe-box.hide .del-btn, .swipe-box.hide li {
+		.swipe-box.hide.up .del-btn, .swipe-box.hide.up li {
 			height: 0px;
 			border: none;
 		}
@@ -195,6 +195,9 @@
 			swipeBars[i].parentNode.querySelector('.del-btn').onclick = function(e) {
 				e.preventDefault();
 				this.parentNode.className += ' hide';
+				setTimeout(function() {
+					this.parentNode.className += ' up'
+				}.bind(this), 350);
 			}
 		}
 
