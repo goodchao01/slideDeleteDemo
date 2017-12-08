@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Slide</title>
 	<style>
-		* { margin: 0; padding: 0; }
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.fl {
+			float: left;
+		}
+
 		.container {
 			width: 100%;
 			height: auto;
@@ -14,11 +22,14 @@
 			position: relative;
 			overflow: hidden;
 		}
+
 		.list-view {
 			overflow: hidden;
 			list-style: none;
 			width: 100%;
+			position: relative;
 		}
+
 		.list-view li {
 			height: 60px;
 			width: 100%;
@@ -26,23 +37,25 @@
 			border-bottom: 1px solid rgb(179, 175, 175);
 			overflow: hidden;
 		}
+
 		.list-img {
 			width: 50px;
 			height: 50px;
 			background: #5ddada;
 			margin: 5px 10px;
 		}
+		.list-content {
+			line-height: 60px;
+		}
+
 		.swipe-box {
-			transition: all 0.2s;
+			transition: all 0.35s;
 			position: relative;
 			left: 0;
 		}
-		/* .swipe-box.back {
-			left: 0 !important;
+		.swipe-bar {
+			background:#6c8888;
 		}
-		.swipe-box.forward {
-			left: -70px !important;
-		} */
 		.del-btn {
 			width: 70px;
 			height: 60px;
@@ -57,75 +70,147 @@
 	</style>
 
 </head>
+
 <body>
 	<div class="container">
 		<ul class="list-view">
 			<div class="swipe-box">
-				<li>
-					<div class="list-img"></div>
-				</li>
+				<div class="swipe-bar">
+					<li>
+						<div class="list-img fl"></div>
+						<div class="list-content fl">列表1</div>
+					</li>
+				</div>
 				<span class="del-btn">删除</span>
 			</div>
-			<li></li>
-			<li></li>
-			<li></li>
+			<div class="swipe-box">
+				<div class="swipe-bar">
+					<li>
+						<div class="list-img fl"></div>
+						<div class="list-content fl">列表2</div>
+					</li>
+				</div>
+				<span class="del-btn">删除</span>
+			</div>
+			<div class="swipe-box">
+				<div class="swipe-bar">
+					<li>
+						<div class="list-img fl"></div>
+						<div class="list-content fl">列表3</div>
+					</li>
+				</div>
+				<span class="del-btn">删除</span>
+			</div>
 		</ul>
 	</div>
 
-    <script>
-        var swipeBox = document.querySelector(".swipe-box");
-        var touchStart = 0,
-			startX = 0,
-			slideRange = 0,
-			isMoved = false;
+	<script>
+		var swipeBars = document.querySelectorAll(".swipe-bar");
 
-		document.querySelector('.del-btn').onclick = function(e) {
-			e.stopPropagation();
-			alert('hh');	
-		};
-		
-		swipeBox.addEventListener('touchstart', function(e) {
-			var e = e || event;
-			e.preventDefault();
+		for(var i=0; i<swipeBars.length; i++) {
 
-			startX = e.targetTouches[0].pageX;
-			this.style.left = '0px';
-			// this.className = this.className.replace(/ back/g, '');
-			// this.className = this.className.replace(/ forward/g, '');
-		});
+			var touchStart = 0,
+				beginX = 0,
+				slideRange = 0,
+				isExpanded = false;
+				direction = 0;
+	
+			//手指接触屏幕
+			swipeBars[i].addEventListener("touchstart", function(e) {
+				var e = e || event;
+				e.preventDefault();
 
-		swipeBox.addEventListener('touchmove', function(e) {
-			var e = e || event;
-			e.preventDefault();
+				startx = e.touches[0].pageX;
+				starty = e.touches[0].pageY;
 
-			var touchX = e.targetTouches[0].pageX;
-			slideRange = touchX - startX;
+				beginX = e.targetTouches[0].pageX;
+				this.parentNode.style.left = '0px';
+			}, false);
+			
+			//滑动屏幕
+			swipeBars[i].addEventListener("touchmove", function(e) {
+				var e = e || event;
+				e.preventDefault();
 
-			// console.log(slideRange);
-			// 更改位置
-			this.style.left = slideRange + 'px';
-			//限定两侧位置
-            if(slideRange < -70) {
-        		this.style.left = '-70px';
-        	} else if(slideRange > 0) {
-        		this.style.left = '0px';
-        	}
-		});
+				var endx, endy;
+				endx = e.changedTouches[0].pageX;
+				endy = e.changedTouches[0].pageY;
+				direction = getDirection(startx, starty, endx, endy);
+				
+				if(direction == 3 || direction == 4) {
+					var touchX = e.targetTouches[0].pageX;
+						slideRange = touchX - beginX;
 
-		swipeBox.addEventListener('touchend', function(e) {
-			var e = e || event;
-			e.preventDefault();
+					// 更改位置
+					this.parentNode.style.left = slideRange + 'px';
+					//限定两侧位置
+					if (slideRange < -70) {
+						this.parentNode.style.left = '-70px';
+					} else if (slideRange > 0) {
+						this.parentNode.style.left = '0px';
+					}
+				}
+			}, false);
 
-			if(slideRange > -35) {
-				// this.className += ' back';
-				this.style.left = '0';
-			} else {
-				// this.className += ' forward';
-				this.style.left = '-70px';
+			//离开屏幕
+			swipeBars[i].addEventListener("touchend", function(e) {
+				var e = e || event;
+				e.preventDefault();
+
+				if (slideRange > -35) {
+					this.parentNode.style.left = '0';
+					if(!isExpanded && direction == 0) {
+						var alertText = this.innerText;
+						alert('您点击了' + alertText);
+					}
+					isExpanded = false;
+				} else {
+					this.parentNode.style.left = '-70px';
+					isExpanded = true;
+				}
+
+				direction = 0;
+				slideRange = 0;
+			}, false);
+
+			// 点击删除按钮
+			swipeBars[i].parentNode.querySelector('.del-btn').onclick = function() {
+				var alertText = this.parentNode.querySelector('.swipe-bar').innerText;
+				alert('删除' + alertText);
 			}
-			slideRange = 0;
-		});
-		 
-    </script>
+		}
+
+		var startx, starty;
+        //获得角度
+        function getAngle(angx, angy) {
+            return Math.atan2(angy, angx) * 180 / Math.PI;
+        };
+        //根据起点终点返回方向 1向上 2向下 3向左 4向右 0未滑动
+        function getDirection(startx, starty, endx, endy) {
+            var angx = endx - startx;
+            var angy = endy - starty;
+            var result = 0;
+    
+            //如果滑动距离太短
+            if (Math.abs(angx) < 10 && Math.abs(angy) < 10) {
+                return result;
+            }
+    
+            var angle = getAngle(angx, angy);
+            if (angle >= -135 && angle <= -45) {
+                result = 1;
+            } else if (angle > 45 && angle < 135) {
+                result = 2;
+            } else if ((angle >= 135 && angle <= 180) || (angle >= -180 && angle < -135)) {
+                result = 3;
+            } else if (angle >= -45 && angle <= 45) {
+                result = 4;
+            }
+    
+            return result;
+		}
+
+	</script>
 </body>
+
 </html>
