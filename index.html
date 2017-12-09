@@ -116,6 +116,7 @@
 					<li>
 						<div class="list-img fl"></div>
 						<div class="list-content fl">列表4</div>
+<<<<<<< HEAD
 					</li>
 				</div>
 				<span class="del-btn">删除</span>
@@ -143,6 +144,8 @@
 					<li>
 						<div class="list-img fl"></div>
 						<div class="list-content fl">列表7</div>
+=======
+>>>>>>> dc90d71bdff4a598008ff3e4623800b3db302280
 					</li>
 				</div>
 				<span class="del-btn">删除</span>
@@ -151,7 +154,11 @@
 				<div class="swipe-bar">
 					<li>
 						<div class="list-img fl"></div>
+<<<<<<< HEAD
 						<div class="list-content fl">列表8</div>
+=======
+						<div class="list-content fl">列表5</div>
+>>>>>>> dc90d71bdff4a598008ff3e4623800b3db302280
 					</li>
 				</div>
 				<span class="del-btn">删除</span>
@@ -160,6 +167,7 @@
 				<div class="swipe-bar">
 					<li>
 						<div class="list-img fl"></div>
+<<<<<<< HEAD
 						<div class="list-content fl">列表9</div>
 					</li>
 				</div>
@@ -170,6 +178,9 @@
 					<li>
 						<div class="list-img fl"></div>
 						<div class="list-content fl">列表10</div>
+=======
+						<div class="list-content fl">列表6</div>
+>>>>>>> dc90d71bdff4a598008ff3e4623800b3db302280
 					</li>
 				</div>
 				<span class="del-btn">删除</span>
@@ -178,6 +189,60 @@
 				<div class="swipe-bar">
 					<li>
 						<div class="list-img fl"></div>
+<<<<<<< HEAD
+						<div class="list-content fl">列表11</div>
+=======
+						<div class="list-content fl">列表7</div>
+>>>>>>> dc90d71bdff4a598008ff3e4623800b3db302280
+					</li>
+				</div>
+				<span class="del-btn">删除</span>
+			</div>
+			<div class="swipe-box">
+				<div class="swipe-bar">
+					<li>
+						<div class="list-img fl"></div>
+<<<<<<< HEAD
+						<div class="list-content fl">列表12</div>
+=======
+						<div class="list-content fl">列表8</div>
+>>>>>>> dc90d71bdff4a598008ff3e4623800b3db302280
+					</li>
+				</div>
+				<span class="del-btn">删除</span>
+			</div>
+			<div class="swipe-box">
+				<div class="swipe-bar">
+					<li>
+						<div class="list-img fl"></div>
+<<<<<<< HEAD
+						<div class="list-content fl">列表13</div>
+=======
+						<div class="list-content fl">列表9</div>
+>>>>>>> dc90d71bdff4a598008ff3e4623800b3db302280
+					</li>
+				</div>
+				<span class="del-btn">删除</span>
+			</div>
+			<div class="swipe-box">
+				<div class="swipe-bar">
+					<li>
+						<div class="list-img fl"></div>
+<<<<<<< HEAD
+						<div class="list-content fl">列表14</div>
+=======
+						<div class="list-content fl">列表10</div>
+>>>>>>> dc90d71bdff4a598008ff3e4623800b3db302280
+					</li>
+				</div>
+				<span class="del-btn">删除</span>
+			</div>
+			<div class="swipe-box">
+				<div class="swipe-bar">
+					<li>
+						<div class="list-img fl"></div>
+<<<<<<< HEAD
+=======
 						<div class="list-content fl">列表11</div>
 					</li>
 				</div>
@@ -214,6 +279,7 @@
 				<div class="swipe-bar">
 					<li>
 						<div class="list-img fl"></div>
+>>>>>>> dc90d71bdff4a598008ff3e4623800b3db302280
 						<div class="list-content fl">列表15</div>
 					</li>
 				</div>
@@ -223,19 +289,23 @@
 	</div>
 
 	<script>
-		var swipeBars = document.querySelectorAll(".swipe-bar");
+		var swipeBars = document.querySelectorAll(".swipe-bar"); 
+		var topValue = 0,// 上次滚动条到顶部的距离
+		    interval = null,
+		    isScroll = false;
 
 		document.body.onclick = function() {
 			for(var i=0; i<swipeBars.length; i++) {
 				swipeBars[i].parentNode.style.left = '0px';
 			}
-		}
+		};
 
 		for(var i=0; i<swipeBars.length; i++) {
 			var touchStart = 0,
 				beginX = 0,
+				// nodeBeginY = 0,
 				slideRange = 0,
-				isExpanded = false;
+				isExpanded = false,
 				direction = 0;
 	
 			//手指接触屏幕
@@ -255,15 +325,26 @@
 			
 			//滑动屏幕
 			swipeBars[i].addEventListener("touchmove", function(e) {
+<<<<<<< HEAD
+	
+			  	setTimeout(function() {
+			  		if(document.body.scrollTop != topValue) {
+			  			isScroll = true;
+			  		}
+			  	}, 60);
+
+			  	topValue = document.body.scrollTop;
+=======
 				// var e = e || event;
 				// e.preventDefault();
+>>>>>>> dc90d71bdff4a598008ff3e4623800b3db302280
 
 				var endx, endy;
 				endx = e.changedTouches[0].pageX;
 				endy = e.changedTouches[0].pageY;
-				direction = getDirection(startx, starty, endx, endy);
+				direction = getDirection(startx, starty, endx, endy);				
 				
-				if(direction == 3 || direction == 4) {
+				if((direction == 3 || direction == 4) && !isScroll) {
 					var touchX = e.targetTouches[0].pageX;
 						slideRange = touchX - beginX;
 
@@ -294,7 +375,7 @@
 					this.parentNode.style.left = '-70px';
 					isExpanded = true;
 				}
-
+				isScroll = false;
 				direction = 0;
 				slideRange = 0;
 			}, false);
@@ -304,16 +385,16 @@
 				e.preventDefault();
 				this.parentNode.className += ' hide';
 				setTimeout(function() {
-					this.parentNode.className += ' up'
+					this.parentNode.className += ' up';
 				}.bind(this), 350);
-			}
+			};
 		}
 
 		var startx, starty;
         //获得角度
         function getAngle(angx, angy) {
             return Math.atan2(angy, angx) * 180 / Math.PI;
-        };
+        }
         //根据起点终点返回方向 1向上 2向下 3向左 4向右 0未滑动
         function getDirection(startx, starty, endx, endy) {
             var angx = endx - startx;
