@@ -144,6 +144,8 @@
 					<li>
 						<div class="list-img fl"></div>
 						<div class="list-content fl">列表7</div>
+
+
 					</li>
 				</div>
 				<span class="del-btn">删除</span>
@@ -300,7 +302,7 @@
 				starty = e.touches[0].pageY;
 
 				beginX = e.targetTouches[0].pageX;
-				
+
 				isScroll = false;
 
 				for(var i=0; i<swipeBars.length; i++) {
@@ -310,19 +312,15 @@
 			
 			//滑动屏幕
 			swipeBars[i].addEventListener("touchmove", function(e) {
-
-	
+				var e = e || event;
 			  	setTimeout(function() {
 			  		if(document.body.scrollTop != topValue) {
 			  			isScroll = true;
+			  			e.preventDefault();
 			  		}
-			  	}, 60);
+			  	}, 30);
 
 			  	topValue = document.body.scrollTop;
-
-				// var e = e || event;
-				// e.preventDefault();
-
 
 				var endx, endy;
 				endx = e.changedTouches[0].pageX;
@@ -330,6 +328,9 @@
 				direction = getDirection(startx, starty, endx, endy);				
 				
 				if((direction == 3 || direction == 4) && !isScroll) {
+
+					e.preventDefault();
+
 					var touchX = e.targetTouches[0].pageX;
 						slideRange = touchX - beginX;
 
@@ -348,10 +349,10 @@
 			swipeBars[i].addEventListener("touchend", function(e) {
 				var e = e || event;
 				e.preventDefault();
-
+				console.log(isScroll);
 				if (slideRange > -35) {
 					this.parentNode.style.left = '0';
-					if(!isExpanded && direction == 0) {
+					if(!isExpanded && direction === 0 && !isScroll) {
 						var alertText = this.innerText;
 						alert('您点击了' + alertText);
 					}
@@ -387,7 +388,7 @@
             var result = 0;
     
             //如果滑动距离太短
-            if (Math.abs(angx) < 10 && Math.abs(angy) < 10) {
+            if (Math.abs(angx) < 5 && Math.abs(angy) < 5) {
                 return result;
             }
     
