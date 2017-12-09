@@ -300,6 +300,8 @@
 				starty = e.touches[0].pageY;
 
 				beginX = e.targetTouches[0].pageX;
+				
+				isScroll = false;
 
 				for(var i=0; i<swipeBars.length; i++) {
 					swipeBars[i].parentNode.style.left = '0px';
