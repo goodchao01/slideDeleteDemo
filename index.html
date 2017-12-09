@@ -372,6 +372,7 @@
 				this.parentNode.className += ' hide';
 				setTimeout(function() {
 					this.parentNode.className += ' up';
+					isExpanded = false;
 				}.bind(this), 350);
 			};
 		}
