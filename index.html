@@ -14,11 +14,17 @@
 			float: left;
 		}
 
-		body.forbidden-scroll {
+		html, body {
+			/* overflow: hidden; */
+			height: 100%;
+			width: 100%;
+		}
+
+		/* body.forbidden-scroll {
 			overflow: scroll;
 			overflow-y: hidden;
 			overflow-x: hidden;
-		}
+		} */
 
 		.container {
 			width: 100%;
@@ -298,9 +304,9 @@
 				
 				if((direction == 3 || direction == 4) && !isScroll) {
 
-					if(document.body.className.indexOf('forbidden-scroll') < 0) {
-						document.body.className += ' forbidden-scroll';
-					}
+					// if(document.body.className.indexOf('forbidden-scroll') < 0) {
+					// 	document.body.className += ' forbidden-scroll';
+					// }
 
 					var touchX = e.targetTouches[0].pageX;
 						slideRange = touchX - beginX;
@@ -332,7 +338,7 @@
 					this.parentNode.style.left = '-70px';
 					isExpanded = true;
 				}
-				document.body.className = document.body.className.replace(/ forbidden-scroll/g, '');
+				// document.body.className = document.body.className.replace(/ forbidden-scroll/g, '');
 				isScroll = false;
 				direction = 0;
 				slideRange = 0;
