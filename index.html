@@ -14,6 +14,11 @@
 			float: left;
 		}
 
+		body.forbidden-scroll {
+			overflow: scroll;
+			overflow-y: hidden;
+		}
+
 		.container {
 			width: 100%;
 			height: auto;
@@ -245,6 +250,7 @@
 			for(var i=0; i<swipeBars.length; i++) {
 				swipeBars[i].parentNode.style.left = '0px';
 			}
+			isExpanded = false;
 		};
 
 		for(var i=0; i<swipeBars.length; i++) {
@@ -291,7 +297,9 @@
 				
 				if((direction == 3 || direction == 4) && !isScroll) {
 
-					e.preventDefault();
+					if(document.body.className.indexOf('forbidden-scroll') < 0) {
+						document.body.className += ' forbidden-scroll';
+					}
 
 					var touchX = e.targetTouches[0].pageX;
 						slideRange = touchX - beginX;
@@ -311,7 +319,7 @@
 			swipeBars[i].addEventListener("touchend", function(e) {
 				var e = e || event;
 				e.preventDefault();
-				console.log(isScroll);
+
 				if (slideRange > -35) {
 					this.parentNode.style.left = '0';
 					if(!isExpanded && direction === 0 && !isScroll) {
@@ -323,6 +331,7 @@
 					this.parentNode.style.left = '-70px';
 					isExpanded = true;
 				}
+				document.body.className = document.body.className.replace(/ forbidden-scroll/g, '');
 				isScroll = false;
 				direction = 0;
 				slideRange = 0;
